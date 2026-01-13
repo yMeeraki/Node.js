@@ -1,3 +1,9 @@
-const tutorial = require('./tutorial')
-console.log(tutorial)
-console.log(tutorial(1,2))
+const fs = require('fs') 
+fs.writeFile('output.txt', "Writing File", (err) => {
+    if(err){
+        console.log("Error Occurred")
+    }
+    else{
+        console.log("File Written Successfully")
+    }
+})
