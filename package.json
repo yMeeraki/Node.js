@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index,js",
   "scripts": {
-    "dev": "nodemon command-line-input.js",
+    "dev": "nodemon web.js",
     "start": "node server.js"
   },
   "dependencies": {
