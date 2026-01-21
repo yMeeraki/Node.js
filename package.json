@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index,js",
   "scripts": {
-    "dev": "nodemon api.js",
+    "dev": "nodemon request.js",
     "start": "node server.js"
   },
   "dependencies": {
