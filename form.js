@@ -1,10 +1,11 @@
 const http = require("http");
 const fs = require("fs");
+const queryString = require("querystring");
 
 const server = http.createServer((req, res) => {
   fs.readFile("html/form.html", "utf-8", (error, data) => {
     if (error) {
-        res.writeHead(500, { "content-type": "text/plain" });
+      res.writeHead(500, { "content-type": "text/plain" });
       res.write("ERROR");
       res.end();
     } else {
@@ -12,17 +13,31 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { "content-type": "text/html" });
         res.write(data);
       } else if (req.url === "/submit") {
-        res.writeHead(200, { "content-type": "text/html" });
-        res.write(`
-    <div>
-     <h1>Data Submitted</h1>
-    </div>
-    `);
+        let dataBody = [];
+        req.on("data", (chunk) => {
+          // console.log(chunk)
+          dataBody.push(chunk);
+          // console.log( dataBody)
+        });
+          req.on("end", () => {
+      const rawData = Buffer.concat(dataBody).toString();
+      const cleanData = queryString.parse(rawData);
+
+      console.log(cleanData);
+
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(`
+        <div>
+          <h1>Welcome, ${cleanData.userName}</h1>
+          <p>Your password (${cleanData.password}) is saved with us</p>
+        </div>
+      `);
+    });
+        
       }
-      res.end();
+      
     }
   });
-
 });
 
 // const server = http.createServer((req, res) => {
