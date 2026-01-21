@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index,js",
   "scripts": {
-    "dev": "nodemon web.js",
+    "dev": "nodemon form.js",
     "start": "node server.js"
   },
   "dependencies": {
