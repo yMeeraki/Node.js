@@ -19,23 +19,39 @@ const server = http.createServer((req, res) => {
           dataBody.push(chunk);
           // console.log( dataBody)
         });
-          req.on("end", () => {
-      const rawData = Buffer.concat(dataBody).toString();
-      const cleanData = queryString.parse(rawData);
-
-      console.log(cleanData);
-
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(`
-        <div>
-          <h1>Welcome, ${cleanData.userName}</h1>
-          <p>Your password (${cleanData.password}) is saved with us</p>
-        </div>
-      `);
-    });
-        
-      }
+        req.on("end", () => {
+          const rawData = Buffer.concat(dataBody).toString();
+          const cleanData = queryString.parse(rawData);
+          const data = `
       
+         Welcome, ${cleanData.userName}
+          Your password (${cleanData.password}) is saved with us
+        
+      `;
+          console.log(cleanData);
+
+          // Async way to create a file
+          fs.writeFileSync(`./text/${cleanData.userName}.txt`, data);
+
+          // Sync way to create a file
+          fs.writeFile(
+            `./text/${cleanData.userName}.txt`,
+            data,
+            "utf-8",
+            (error) => {
+              if (error) {
+                res.end("Internal Server Error");
+                return false;
+              } else {
+                return true;
+              }
+            },
+          );
+
+          res.writeHead(200, { "Content-Type": "text/html" });
+          res.end();
+        });
+      }
     }
   });
 });
