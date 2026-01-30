@@ -10,7 +10,6 @@ if (operation == "write") {
 } else if (operation == "read") {
   // Read
   const name = process.argv[3];
-
   let data = fs.readFileSync(`./files/${name}.txt`, "utf-8");
   console.log(data);
 } else if (operation == "update") {
@@ -23,7 +22,7 @@ if (operation == "write") {
 } else if (operation == "delete") {
   // Delete
   const name = process.argv[3];
-  let data = fs.unlinkSync(`./files/${name}.txt`);
+  fs.unlinkSync(`./files/${name}.txt`);
   console.log("File deleted");
 } else {
   console.log("Error: Write a operation!");
