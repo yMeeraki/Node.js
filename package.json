@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index,js",
   "scripts": {
-    "dev": "nodemon root.js",
+    "dev": "nodemon website.js",
     "start": "node server.js"
   },
   "dependencies": {
